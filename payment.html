@@ -325,11 +325,11 @@
             <div class="plan-details">
                 <div class="plan-name" id="planName">Professional Plan</div>
                 <div class="plan-desc" id="planDesc">For growing businesses — up to 100 employees</div>
-                <div class="plan-price" id="planPrice">RM 129<span>/month</span></div>
+                <div class="plan-price" id="planPrice">RM 249<span>/month</span></div>
             </div>
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span id="subtotal">RM 129.00</span>
+                <span id="subtotal">RM 249.00</span>
             </div>
             <div class="summary-row">
                 <span>Discount <span class="discount-badge">YEARLY</span></span>
@@ -337,7 +337,7 @@
             </div>
             <div class="summary-row total">
                 <span>Total Due</span>
-                <span id="total">RM 129.00</span>
+                <span id="total">RM 249.00</span>
             </div>
             <div class="guarantee">
                 <i class="fas fa-undo-alt"></i>
@@ -348,9 +348,9 @@
 
     <script>
         const plans = {
-            starter: { name: 'Starter Plan', desc: 'For small teams — up to 25 employees', monthly: 49, yearly: 39 },
-            professional: { name: 'Professional Plan', desc: 'For growing businesses — up to 100 employees', monthly: 129, yearly: 99 },
-            enterprise: { name: 'Enterprise Plan', desc: 'For large organizations — unlimited employees', monthly: 399, yearly: 319 }
+            starter: { name: 'Starter Plan', desc: 'For small teams — up to 25 employees', monthly: 99, yearly: 79 },
+            professional: { name: 'Professional Plan', desc: 'For growing businesses — up to 100 employees', monthly: 249, yearly: 199 },
+            enterprise: { name: 'Enterprise Plan', desc: 'For large organizations — unlimited employees', monthly: 799, yearly: 639 }
         };
         const params = new URLSearchParams(window.location.search);
         const planKey = params.get('plan') || 'professional';

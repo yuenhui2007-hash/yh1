@@ -299,61 +299,61 @@
             line-height: 1.7;
         }
 
-        /* Features */
-        .features { background: var(--color-2); }
-        .features-grid {
+        /* Services Section */
+        .services { background: var(--color-2); }
+        .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
             max-width: 1200px;
             margin: 0 auto;
         }
-        .feature-card {
+        .service-card {
             background: var(--color-2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: left;
             transition: all 0.4s ease;
             border: 1px solid var(--color-5);
             position: relative;
             overflow: hidden;
         }
-        .feature-card::before {
+        .service-card::before {
             content: '';
             position: absolute; top: 0; left: 0;
-            width: 100%; height: 4px;
+            width: 100%; height: 3px;
             background: var(--gradient-warm);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
-        .feature-card:hover::before { transform: scaleX(1); }
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(127, 117, 94, 0.12);
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(127, 117, 94, 0.1);
             border-color: var(--color-4);
         }
-        .feature-icon {
-            width: 70px; height: 70px;
-            border-radius: 20px;
+        .service-icon {
+            width: 50px; height: 50px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            font-size: 1.3rem;
             color: var(--color-2);
             background: var(--gradient-warm);
         }
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
+        .service-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.5rem;
             color: var(--color-4);
             font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
-        .feature-card p {
+        .service-card p {
             color: var(--text-light);
-            line-height: 1.7;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         /* How It Works */
@@ -585,78 +585,15 @@
         }
         .features-list li i { color: var(--color-4); }
 
-        /* Contact */
-        .contact {
+        /* Footer */
+        footer {
             background: var(--color-4);
-            position: relative;
-            overflow: hidden;
+            padding: 3rem 5%;
+            text-align: center;
+            color: rgba(255, 249, 234, 0.5);
+            border-top: 1px solid rgba(255, 249, 234, 0.1);
         }
-        .contact-bg {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80') center/cover;
-            opacity: 0.08;
-        }
-        .contact .section-header h2 { color: var(--color-3); }
-        .contact .section-header p { color: rgba(255, 249, 234, 0.7); }
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: rgba(255, 249, 234, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 249, 234, 0.1);
-            border-radius: 24px;
-            padding: 3rem;
-            position: relative;
-            z-index: 2;
-        }
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-        .form-group label {
-            display: block;
-            color: rgba(255, 249, 234, 0.9);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 249, 234, 0.2);
-            background: rgba(255, 249, 234, 0.08);
-            color: var(--color-3);
-            font-size: 1rem;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--color-5);
-            background: rgba(255, 249, 234, 0.12);
-        }
-        .form-group input::placeholder {
-            color: rgba(255, 249, 234, 0.4);
-        }
-        .submit-btn {
-            width: 100%;
-            padding: 1.2rem;
-            background: var(--color-3);
-            color: var(--color-4);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(127, 117, 94, 0.4);
-            background: var(--color-2);
-        }
+        footer p { font-size: 0.9rem; }
 
         /* AI Chat Widget */
         .chat-widget {
@@ -673,7 +610,6 @@
             color: var(--color-2);
             border: none;
             font-size: 1.5rem;
-            cursor: none;
             box-shadow: 0 8px 30px rgba(127, 117, 94, 0.4);
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
@@ -707,27 +643,14 @@
             align-items: center;
             gap: 0.8rem;
         }
-        .chat-header img {
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: var(--color-2);
-            padding: 2px;
-        }
-        .chat-header div h4 {
-            font-size: 1rem;
-            font-weight: 600;
-        }
-        .chat-header div p {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
+        .chat-header div h4 { font-size: 1rem; font-weight: 600; }
+        .chat-header div p { font-size: 0.75rem; opacity: 0.9; }
         .chat-close {
             margin-left: auto;
             background: none;
             border: none;
             color: var(--color-2);
             font-size: 1.2rem;
-            cursor: none;
         }
         .chat-messages {
             flex: 1;
@@ -777,32 +700,19 @@
             font-size: 0.9rem;
             outline: none;
         }
-        .chat-input-area input:focus {
-            border-color: var(--color-4);
-        }
+        .chat-input-area input:focus { border-color: var(--color-4); }
         .chat-send {
             width: 40px; height: 40px;
             border-radius: 50%;
             background: var(--gradient-warm);
             color: var(--color-2);
             border: none;
-            cursor: none;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: transform 0.2s;
         }
         .chat-send:hover { transform: scale(1.1); }
-
-        /* Footer */
-        footer {
-            background: var(--color-4);
-            padding: 3rem 5%;
-            text-align: center;
-            color: rgba(255, 249, 234, 0.5);
-            border-top: 1px solid rgba(255, 249, 234, 0.1);
-        }
-        footer p { font-size: 0.9rem; }
 
         /* Modal */
         .modal {
@@ -892,10 +802,9 @@
             JasLearn
         </a>
         <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
+            <li><a href="#services">Services</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="nav-auth">
             <a href="login.html">Sign In</a>
@@ -919,7 +828,7 @@
             <p>Deliver personalized training, track progress, assess skills, and provide real-time feedback — all powered by intelligent AI that adapts to every learner.</p>
             <div class="hero-btns">
                 <a href="signup.html" class="btn-primary">Start Free Trial</a>
-                <a href="#features" class="btn-outline">Explore Features</a>
+                <a href="#services" class="btn-outline">Our Services</a>
             </div>
         </div>
     </section>
@@ -932,57 +841,62 @@
         <div class="stat-item"><h3>4.9</h3><p>User Rating</p></div>
     </section>
 
-    <!-- Features -->
-    <section class="features" id="features">
+    <!-- Services Section -->
+    <section class="services" id="services">
         <div class="section-header animate-on-scroll">
-            <h2>Powerful Features</h2>
-            <p>Everything you need to transform your workforce with intelligent, adaptive learning experiences.</p>
+            <h2>Services Offered</h2>
+            <p>Comprehensive learning solutions designed to elevate your workforce at every stage.</p>
         </div>
-        <div class="features-grid">
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
-                <h3>Personalized Learning</h3>
-                <p>AI tailors content to each employee's role, performance, and learning style for maximum engagement and retention.</p>
+        <div class="services-grid">
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-user-plus"></i></div>
+                <h3>Employee Onboarding</h3>
+                <p>Streamline new hire integration with structured, role-specific onboarding paths that accelerate time-to-productivity.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
-                <h3>Progress Tracking</h3>
-                <p>Real-time dashboards monitor engagement, completion rates, assessment results, and competency improvements.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-building"></i></div>
+                <h3>Corporate Training</h3>
+                <p>End-to-end corporate training programs tailored to your business objectives, culture, and industry standards.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-brain"></i></div>
-                <h3>AI Skill Assessment</h3>
-                <p>Intelligent assessments identify skill gaps and recommend targeted learning paths to close them efficiently.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Compliance Training</h3>
+                <p>Ensure regulatory compliance with automated tracking, certification renewals, and audit-ready reporting.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-comments"></i></div>
-                <h3>Real-Time Feedback</h3>
-                <p>Instant AI-powered feedback helps employees understand mistakes and improve performance immediately.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-chess-king"></i></div>
+                <h3>Leadership Development</h3>
+                <p>Cultivate future leaders with executive coaching, strategic thinking modules, and decision-making simulations.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <h3>Compliance Management</h3>
-                <p>Automated tracking and certification management ensures your workforce stays compliant with industry regulations.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Technical Skills Training</h3>
+                <p>Keep your team ahead with hands-on labs, coding challenges, and certifications in cutting-edge technologies.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-vr-cardboard"></i></div>
-                <h3>Interactive Simulations</h3>
-                <p>Immersive scenarios and simulations provide hands-on practice in a safe, risk-free environment.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Soft Skills Development</h3>
+                <p>Build communication, teamwork, emotional intelligence, and conflict resolution through interactive scenarios.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Mobile Learning</h3>
-                <p>Access training anytime, anywhere with fully responsive mobile apps and offline content support.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-robot"></i></div>
+                <h3>AI Coaching</h3>
+                <p>One-on-one AI coaching that adapts to individual learning pace, offering personalized feedback and guidance.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
-                <h3>LMS Integration</h3>
-                <p>Seamlessly connects with your existing HR systems, LMS, and enterprise applications.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-chart-bar"></i></div>
+                <h3>Learning Analytics</h3>
+                <p>Deep-dive analytics dashboards to measure ROI, identify knowledge gaps, and optimize training strategies.</p>
             </div>
-            <div class="feature-card animate-on-scroll">
-                <div class="feature-icon"><i class="fas fa-language"></i></div>
-                <h3>Multi-Language Support</h3>
-                <p>Deliver training in 50+ languages with AI-powered translation and localization features.</p>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-certificate"></i></div>
+                <h3>Certification Management</h3>
+                <p>Automate certification issuance, renewal reminders, and credential verification for your entire organization.</p>
+            </div>
+            <div class="service-card animate-on-scroll">
+                <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
+                <h3>Workforce Upskilling & Reskilling</h3>
+                <p>Future-proof your workforce with targeted upskilling and reskilling programs aligned with market demands.</p>
             </div>
         </div>
     </section>
@@ -1036,9 +950,9 @@
             <div class="pricing-card animate-on-scroll">
                 <h3>Starter</h3>
                 <p class="subtitle">For small teams</p>
-                <div class="price" data-monthly="RM 49" data-yearly="RM 39">RM 49<span>/month</span></div>
-                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 468/year)">Billed monthly</p>
-                <p class="price-old" data-yearly="RM 588/year" style="visibility:hidden;"></p>
+                <div class="price" data-monthly="RM 99" data-yearly="RM 79">RM 99<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 948/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="RM 1,188/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Up to 25 employees</li>
                     <li><i class="fas fa-check"></i> Basic AI personalization</li>
@@ -1053,9 +967,9 @@
                 <div class="popular-badge">Most Popular</div>
                 <h3>Professional</h3>
                 <p class="subtitle">For growing businesses</p>
-                <div class="price" data-monthly="RM 129" data-yearly="RM 99">RM 129<span>/month</span></div>
-                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 1,188/year)">Billed monthly</p>
-                <p class="price-old" data-yearly="RM 1,548/year" style="visibility:hidden;"></p>
+                <div class="price" data-monthly="RM 249" data-yearly="RM 199">RM 249<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 2,388/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="RM 2,988/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Up to 100 employees</li>
                     <li><i class="fas fa-check"></i> Advanced AI personalization</li>
@@ -1070,9 +984,9 @@
             <div class="pricing-card animate-on-scroll">
                 <h3>Enterprise</h3>
                 <p class="subtitle">For large organizations</p>
-                <div class="price" data-monthly="RM 399" data-yearly="RM 319">RM 399<span>/month</span></div>
-                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 3,828/year)">Billed monthly</p>
-                <p class="price-old" data-yearly="RM 4,788/year" style="visibility:hidden;"></p>
+                <div class="price" data-monthly="RM 799" data-yearly="RM 639">RM 799<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 7,668/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="RM 9,588/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Unlimited employees</li>
                     <li><i class="fas fa-check"></i> Full AI customization</li>
@@ -1085,36 +999,6 @@
                 </ul>
                 <a href="payment.html?plan=enterprise" class="btn-outline" style="width:100%;color:var(--color-4);border-color:var(--color-4);">Choose Enterprise</a>
             </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section class="contact" id="contact">
-        <div class="contact-bg"></div>
-        <div class="section-header animate-on-scroll">
-            <h2>Get Started</h2>
-            <p>Leave your details and our team will contact you within 24 hours to set up your personalized demo.</p>
-        </div>
-        <div class="contact-container animate-on-scroll">
-            <form id="contactForm">
-                <div class="form-group">
-                    <label><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" placeholder="Enter your full name" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-phone"></i> Phone Number</label>
-                    <input type="tel" placeholder="e.g. +6012-3456789" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-envelope"></i> Email Address</label>
-                    <input type="email" placeholder="your@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label><i class="fas fa-building"></i> Company Name (Optional)</label>
-                    <input type="text" placeholder="Your company name">
-                </div>
-                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Request Demo</button>
-            </form>
         </div>
     </section>
 
@@ -1183,14 +1067,9 @@
         const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
 
-        // Form
-        document.getElementById('contactForm').addEventListener('submit', e => {
-            e.preventDefault();
-            document.getElementById('successModal').classList.add('active');
-        });
+        // Modal
         function closeModal() {
             document.getElementById('successModal').classList.remove('active');
-            document.getElementById('contactForm').reset();
         }
         document.getElementById('successModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 
@@ -1224,20 +1103,22 @@
             toggle.innerHTML = box.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-comment-dots"></i>';
         }
         const chatResponses = {
-            'price': 'Our plans start at RM 49/month for Starter, RM 129/month for Professional, and RM 399/month for Enterprise. You can save 20% with yearly billing!',
-            'pricing': 'Our plans start at RM 49/month for Starter, RM 129/month for Professional, and RM 399/month for Enterprise. You can save 20% with yearly billing!',
-            'cost': 'Our plans start at RM 49/month for Starter, RM 129/month for Professional, and RM 399/month for Enterprise. You can save 20% with yearly billing!',
+            'price': 'Our plans start at RM 99/month for Starter, RM 249/month for Professional, and RM 799/month for Enterprise. You can save 20% with yearly billing!',
+            'pricing': 'Our plans start at RM 99/month for Starter, RM 249/month for Professional, and RM 799/month for Enterprise. You can save 20% with yearly billing!',
+            'cost': 'Our plans start at RM 99/month for Starter, RM 249/month for Professional, and RM 799/month for Enterprise. You can save 20% with yearly billing!',
             'free': 'Yes! We offer a 14-day free trial on all plans. No credit card required.',
             'trial': 'Yes! We offer a 14-day free trial on all plans. No credit card required.',
             'feature': 'JasLearn offers personalized AI learning, progress tracking, skill assessments, real-time feedback, compliance management, interactive simulations, mobile learning, LMS integration, and multi-language support.',
             'features': 'JasLearn offers personalized AI learning, progress tracking, skill assessments, real-time feedback, compliance management, interactive simulations, mobile learning, LMS integration, and multi-language support.',
+            'service': 'We offer Employee Onboarding, Corporate Training, Compliance Training, Leadership Development, Technical Skills Training, Soft Skills Development, AI Coaching, Learning Analytics, Certification Management, and Workforce Upskilling & Reskilling.',
+            'services': 'We offer Employee Onboarding, Corporate Training, Compliance Training, Leadership Development, Technical Skills Training, Soft Skills Development, AI Coaching, Learning Analytics, Certification Management, and Workforce Upskilling & Reskilling.',
             'login': 'You can sign in at our Login page. We also support Google and Apple sign-in for quick access.',
             'signin': 'You can sign in at our Login page. We also support Google and Apple sign-in for quick access.',
             'signup': 'You can sign up at our Sign Up page. We also support Google and Apple sign-in for quick access.',
             'register': 'You can sign up at our Sign Up page. We also support Google and Apple sign-in for quick access.',
-            'contact': 'You can reach us through the contact form on this page, or email us at support@jaslearn.ai. We typically respond within 24 hours.',
-            'support': 'You can reach us through the contact form on this page, or email us at support@jaslearn.ai. We typically respond within 24 hours.',
-            'help': 'I can help with pricing, features, free trials, login issues, and general questions. What would you like to know?',
+            'contact': 'You can reach us by emailing support@jaslearn.ai. We typically respond within 24 hours.',
+            'support': 'You can reach us by emailing support@jaslearn.ai. We typically respond within 24 hours.',
+            'help': 'I can help with pricing, features, services, free trials, login issues, and general questions. What would you like to know?',
             'hello': 'Hello! Welcome to JasLearn. How can I assist you today?',
             'hi': 'Hi there! Welcome to JasLearn. What can I help you with?'
         };
@@ -1250,7 +1131,7 @@
             input.value = '';
             container.scrollTop = container.scrollHeight;
             setTimeout(() => {
-                let reply = "I'm not sure about that. Try asking about pricing, features, free trial, login, or contact support!";
+                let reply = "I'm not sure about that. Try asking about pricing, features, services, free trial, login, or contact support!";
                 const lower = msg.toLowerCase();
                 for (const [key, val] of Object.entries(chatResponses)) {
                     if (lower.includes(key)) { reply = val; break; }
@@ -1263,12 +1144,8 @@
         // Pricing toggle
         function setPricing(period) {
             document.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.period === period));
-            document.querySelectorAll('.price').forEach(el => {
-                el.innerHTML = el.dataset[period] + '<span>/month</span>';
-            });
-            document.querySelectorAll('.price-period').forEach(el => {
-                el.textContent = el.dataset[period];
-            });
+            document.querySelectorAll('.price').forEach(el => { el.innerHTML = el.dataset[period] + '<span>/month</span>'; });
+            document.querySelectorAll('.price-period').forEach(el => { el.textContent = el.dataset[period]; });
             document.querySelectorAll('.price-old').forEach(el => {
                 el.style.visibility = period === 'yearly' ? 'visible' : 'hidden';
                 if (period === 'yearly') el.textContent = el.dataset.yearly;
