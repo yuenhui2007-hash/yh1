@@ -348,9 +348,9 @@
 
     <script>
         const plans = {
-            starter: { name: 'Starter Plan', desc: 'For small teams — up to 25 employees', monthly: 99, yearly: 79 },
-            professional: { name: 'Professional Plan', desc: 'For growing businesses — up to 100 employees', monthly: 249, yearly: 199 },
-            enterprise: { name: 'Enterprise Plan', desc: 'For large organizations — unlimited employees', monthly: 799, yearly: 639 }
+            starter: { name: 'Starter Plan', desc: 'For small teams — up to 25 employees', monthly: 149, yearly: 119 },
+            professional: { name: 'Professional Plan', desc: 'For growing businesses — up to 100 employees', monthly: 349, yearly: 279 },
+            enterprise: { name: 'Enterprise Plan', desc: 'For large organizations — unlimited employees', monthly: 0, yearly: 0 }
         };
         const params = new URLSearchParams(window.location.search);
         const planKey = params.get('plan') || 'professional';
