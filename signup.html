@@ -262,6 +262,8 @@
             </form>
             <script>
                 const API_BASE = window.location.origin + '/api';
+                const params = new URLSearchParams(window.location.search);
+                const redirectTo = params.get('redirect') || localStorage.getItem('redirectAfterAuth') || 'index.html';
                 document.getElementById('signupForm').addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const btn = document.getElementById('submitBtn');
@@ -285,7 +287,8 @@
                         if (!res.ok) throw new Error(data.error || 'Sign up failed');
                         localStorage.setItem('token', data.token);
                         localStorage.setItem('user', JSON.stringify(data.user));
-                        window.location.href = 'index.html';
+                        localStorage.removeItem('redirectAfterAuth');
+                        window.location.href = redirectTo;
                     } catch (e) {
                         err.textContent = e.message; err.style.display = 'block';
                         btn.textContent = 'Create Account'; btn.disabled = false;

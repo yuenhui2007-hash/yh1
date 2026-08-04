@@ -895,9 +895,9 @@
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
         </ul>
-        <div class="nav-auth">
-            <a href="login.html">Sign In</a>
-            <a href="signup.html" class="nav-btn">Get Started</a>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" id="navLogin">Sign In</a>
+            <a href="signup.html" class="nav-btn" id="navSignup">Get Started</a>
         </div>
     </nav>
 
@@ -1262,6 +1262,23 @@
                 if (period === 'yearly') el.textContent = el.dataset.yearly;
             });
         }
+
+        // Auth state in nav
+        (function() {
+            const user = JSON.parse(localStorage.getItem('user') || 'null');
+            const token = localStorage.getItem('token');
+            const navAuth = document.getElementById('navAuth');
+            if (user && token && navAuth) {
+                navAuth.innerHTML = `<a href="login.html" onclick="localStorage.removeItem('token');localStorage.removeItem('user');" style="color:rgba(255,249,234,0.85)">Hi, ${user.firstName || user.email}</a><a href="login.html" onclick="localStorage.removeItem('token');localStorage.removeItem('user');" class="nav-btn">Logout</a>`;
+            }
+        })();
+
+        // Capture redirect before login
+        document.querySelectorAll('a[href="login.html"], a[href="signup.html"]').forEach(a => {
+            a.addEventListener('click', () => {
+                localStorage.setItem('redirectAfterAuth', window.location.pathname.split('/').pop() || 'index.html');
+            });
+        });
     </script>
 </body>
 </html>
