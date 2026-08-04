@@ -310,38 +310,118 @@
         }
         .service-card {
             background: var(--color-2);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 2.2rem;
             text-align: left;
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             border: 1px solid var(--color-5);
             position: relative;
             overflow: hidden;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
         .service-card::before {
             content: '';
             position: absolute; top: 0; left: 0;
-            width: 100%; height: 3px;
+            width: 100%; height: 4px;
             background: var(--gradient-warm);
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-origin: left;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 40%,
+                rgba(255,255,255,0.4) 50%,
+                transparent 60%
+            );
+            transform: translateX(-100%) rotate(45deg);
+            transition: transform 0.8s;
+            pointer-events: none;
         }
         .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover::after {
+            transform: translateX(100%) rotate(45deg);
+        }
         .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(127, 117, 94, 0.1);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(127, 117, 94, 0.18);
             border-color: var(--color-4);
         }
+        .service-card:active {
+            transform: translateY(-6px) scale(0.98);
+        }
         .service-icon {
-            width: 50px; height: 50px;
-            border-radius: 14px;
+            width: 56px; height: 56px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.2rem;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--color-2);
             background: var(--gradient-warm);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 4px 15px rgba(127, 117, 94, 0.2);
+        }
+        .service-card:hover .service-icon {
+            transform: scale(1.15) rotate(-5deg);
+            box-shadow: 0 8px 25px rgba(127, 117, 94, 0.35);
+        }
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            color: var(--color-4);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .service-card:hover h3 {
+            color: var(--color-1);
+        }
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            transition: color 0.3s;
+        }
+        .service-card:hover p {
+            color: var(--color-4);
+        }
+        .service-card .arrow {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-4);
+            font-size: 0.8rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .service-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .service-card .arrow i {
+            transition: transform 0.3s;
+        }
+        .service-card:hover .arrow i {
+            transform: translateX(3px);
         }
         .service-card h3 {
             font-size: 1.15rem;
@@ -731,12 +811,21 @@
             padding: 3rem;
             border-radius: 24px;
             text-align: center;
-            max-width: 400px;
-            animation: modalIn 0.4s ease;
+            max-width: 450px;
+            animation: modalIn 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 30px 80px rgba(127, 117, 94, 0.25);
+            border: 1px solid var(--color-5);
         }
         @keyframes modalIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            from { transform: scale(0.7) translateY(30px); opacity: 0; }
+            to { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .modal-content .modal-icon {
+            animation: iconPop 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0.1s both;
+        }
+        @keyframes iconPop {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
         }
         .modal-icon {
             width: 80px; height: 80px;
@@ -848,55 +937,65 @@
             <p>Comprehensive learning solutions designed to elevate your workforce at every stage.</p>
         </div>
         <div class="services-grid">
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Employee Onboarding', 'Streamline new hire integration with structured, role-specific onboarding paths that accelerate time-to-productivity. Our AI-powered onboarding adapts to each role, delivering the right content at the right time to get new employees productive faster.')">
                 <div class="service-icon"><i class="fas fa-user-plus"></i></div>
                 <h3>Employee Onboarding</h3>
                 <p>Streamline new hire integration with structured, role-specific onboarding paths that accelerate time-to-productivity.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Corporate Training', 'End-to-end corporate training programs tailored to your business objectives, culture, and industry standards. From sales enablement to product knowledge, we build programs that align with your strategic goals.')">
                 <div class="service-icon"><i class="fas fa-building"></i></div>
                 <h3>Corporate Training</h3>
                 <p>End-to-end corporate training programs tailored to your business objectives, culture, and industry standards.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Compliance Training', 'Ensure regulatory compliance with automated tracking, certification renewals, and audit-ready reporting. Stay ahead of industry regulations with proactive compliance management and real-time status dashboards.')">
                 <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
                 <h3>Compliance Training</h3>
                 <p>Ensure regulatory compliance with automated tracking, certification renewals, and audit-ready reporting.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Leadership Development', 'Cultivate future leaders with executive coaching, strategic thinking modules, and decision-making simulations. Identify high-potential employees and accelerate their growth into leadership roles.')">
                 <div class="service-icon"><i class="fas fa-chess-king"></i></div>
                 <h3>Leadership Development</h3>
                 <p>Cultivate future leaders with executive coaching, strategic thinking modules, and decision-making simulations.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Technical Skills Training', 'Keep your team ahead with hands-on labs, coding challenges, and certifications in cutting-edge technologies. From cloud computing to cybersecurity, we cover the skills that matter most.')">
                 <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
                 <h3>Technical Skills Training</h3>
                 <p>Keep your team ahead with hands-on labs, coding challenges, and certifications in cutting-edge technologies.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Soft Skills Development', 'Build communication, teamwork, emotional intelligence, and conflict resolution through interactive scenarios. Our AI-powered roleplays provide safe environments to practice and refine essential interpersonal skills.')">
                 <div class="service-icon"><i class="fas fa-handshake"></i></div>
                 <h3>Soft Skills Development</h3>
                 <p>Build communication, teamwork, emotional intelligence, and conflict resolution through interactive scenarios.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('AI Coaching', 'One-on-one AI coaching that adapts to individual learning pace, offering personalized feedback and guidance. Available 24/7, our AI coach answers questions, explains concepts, and keeps learners motivated.')">
                 <div class="service-icon"><i class="fas fa-robot"></i></div>
                 <h3>AI Coaching</h3>
                 <p>One-on-one AI coaching that adapts to individual learning pace, offering personalized feedback and guidance.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Learning Analytics', 'Deep-dive analytics dashboards to measure ROI, identify knowledge gaps, and optimize training strategies. Make data-driven decisions with insights on engagement, completion, and skill progression.')">
                 <div class="service-icon"><i class="fas fa-chart-bar"></i></div>
                 <h3>Learning Analytics</h3>
                 <p>Deep-dive analytics dashboards to measure ROI, identify knowledge gaps, and optimize training strategies.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Certification Management', 'Automate certification issuance, renewal reminders, and credential verification for your entire organization. Never miss a renewal with smart alerts and integrated verification systems.')">
                 <div class="service-icon"><i class="fas fa-certificate"></i></div>
                 <h3>Certification Management</h3>
                 <p>Automate certification issuance, renewal reminders, and credential verification for your entire organization.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
-            <div class="service-card animate-on-scroll">
+            <div class="service-card animate-on-scroll" onclick="showService('Workforce Upskilling & Reskilling', 'Future-proof your workforce with targeted upskilling and reskilling programs aligned with market demands. Prepare your team for emerging roles and technologies before disruption hits.')">
                 <div class="service-icon"><i class="fas fa-sync-alt"></i></div>
                 <h3>Workforce Upskilling & Reskilling</h3>
                 <p>Future-proof your workforce with targeted upskilling and reskilling programs aligned with market demands.</p>
+                <div class="arrow"><i class="fas fa-arrow-right"></i></div>
             </div>
         </div>
     </section>
@@ -950,9 +1049,9 @@
             <div class="pricing-card animate-on-scroll">
                 <h3>Starter</h3>
                 <p class="subtitle">For small teams</p>
-                <div class="price" data-monthly="RM 149" data-yearly="RM 119">RM 149<span>/month</span></div>
-                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 1,428/year)">Billed monthly</p>
-                <p class="price-old" data-yearly="RM 1,788/year" style="visibility:hidden;"></p>
+                <div class="price" data-monthly="$149" data-yearly="$119">$149<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually ($1,428/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="$1,788/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Up to 25 employees</li>
                     <li><i class="fas fa-check"></i> Basic AI personalization</li>
@@ -967,9 +1066,9 @@
                 <div class="popular-badge">Most Popular</div>
                 <h3>Professional</h3>
                 <p class="subtitle">For growing businesses</p>
-                <div class="price" data-monthly="RM 349" data-yearly="RM 279">RM 349<span>/month</span></div>
-                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 3,348/year)">Billed monthly</p>
-                <p class="price-old" data-yearly="RM 4,188/year" style="visibility:hidden;"></p>
+                <div class="price" data-monthly="$349" data-yearly="$279">$349<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually ($3,348/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="$4,188/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Up to 100 employees</li>
                     <li><i class="fas fa-check"></i> Advanced AI personalization</li>
@@ -1026,13 +1125,13 @@
         <button class="chat-toggle" onclick="toggleChat()" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
     </div>
 
-    <!-- Modal -->
-    <div class="modal" id="successModal">
+    <!-- Service Modal -->
+    <div class="modal" id="serviceModal">
         <div class="modal-content">
-            <div class="modal-icon"><i class="fas fa-check"></i></div>
-            <h3>Request Received!</h3>
-            <p>Thank you for your interest. Our team will contact you within 24 hours to schedule your demo.</p>
-            <button class="btn-primary" onclick="closeModal()">Got It</button>
+            <div class="modal-icon"><i class="fas fa-info-circle"></i></div>
+            <h3>Service Title</h3>
+            <p>Service description goes here.</p>
+            <button class="btn-primary" onclick="closeServiceModal()">Got It</button>
         </div>
     </div>
 
@@ -1140,6 +1239,18 @@
                 container.scrollTop = container.scrollHeight;
             }, 600);
         }
+
+        // Service modal
+        function showService(title, description) {
+            const modal = document.getElementById('serviceModal');
+            modal.querySelector('h3').textContent = title;
+            modal.querySelector('p').textContent = description;
+            modal.classList.add('active');
+        }
+        function closeServiceModal() {
+            document.getElementById('serviceModal').classList.remove('active');
+        }
+        document.getElementById('serviceModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeServiceModal(); });
 
         // Pricing toggle
         function setPricing(period) {
