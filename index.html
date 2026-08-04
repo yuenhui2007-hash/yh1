@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Employee Training Platform</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <title>JasLearn — AI Employee Training</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -59,13 +61,14 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
+            font-size: 1.6rem;
+            font-weight: 600;
             color: var(--color-3);
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-family: 'Playfair Display', serif;
+            letter-spacing: 0.5px;
         }
 
         .logo i {
@@ -183,16 +186,18 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
+            font-size: 4.5rem;
+            font-weight: 500;
             color: var(--color-2);
             margin-bottom: 1.5rem;
-            line-height: 1.1;
+            line-height: 0.95;
             font-family: 'Playfair Display', serif;
+            letter-spacing: -1px;
         }
 
         .hero h1 span {
             color: var(--color-5);
+            font-style: italic;
         }
 
         .hero p {
@@ -292,8 +297,8 @@
         }
 
         .stat-item h3 {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: 2.8rem;
+            font-weight: 500;
             color: var(--color-3);
             font-family: 'Playfair Display', serif;
         }
@@ -316,11 +321,12 @@
         }
 
         .section-header h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
+            font-size: 3.2rem;
+            font-weight: 500;
             margin-bottom: 1rem;
             color: var(--color-4);
             font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
         }
 
         .section-header p {
@@ -392,6 +398,8 @@
             font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--color-4);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
 
         .feature-card p {
@@ -448,6 +456,8 @@
             font-size: 1.2rem;
             margin-bottom: 0.8rem;
             color: var(--color-4);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
 
         .step-card p {
@@ -515,8 +525,10 @@
         }
 
         .value-item h3 {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             margin-bottom: 0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
 
         .value-item p {
@@ -579,9 +591,11 @@
         }
 
         .pricing-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
             color: var(--color-4);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
         }
 
         .pricing-card .subtitle {
@@ -591,8 +605,8 @@
         }
 
         .price {
-            font-size: 3rem;
-            font-weight: 800;
+            font-size: 3.2rem;
+            font-weight: 500;
             color: var(--color-4);
             margin-bottom: 0.5rem;
             font-family: 'Playfair Display', serif;
@@ -629,14 +643,14 @@
             color: var(--color-4);
         }
 
-        /* Payment Portal */
-        .payment {
+        /* Contact Section */
+        .contact {
             background: var(--color-4);
             position: relative;
             overflow: hidden;
         }
 
-        .payment-bg {
+        .contact-bg {
             position: absolute;
             top: 0;
             left: 0;
@@ -646,15 +660,15 @@
             opacity: 0.08;
         }
 
-        .payment .section-header h2 {
+        .contact .section-header h2 {
             color: var(--color-3);
         }
 
-        .payment .section-header p {
+        .contact .section-header p {
             color: rgba(255, 249, 234, 0.7);
         }
 
-        .payment-container {
+        .contact-container {
             max-width: 600px;
             margin: 0 auto;
             background: rgba(255, 249, 234, 0.05);
@@ -699,67 +713,6 @@
 
         .form-group input::placeholder {
             color: rgba(255, 249, 234, 0.4);
-        }
-
-        .payment-methods {
-            margin-bottom: 2rem;
-        }
-
-        .payment-methods h3 {
-            color: var(--color-3);
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .method-options {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .method-option {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 249, 234, 0.15);
-            background: rgba(255, 249, 234, 0.05);
-            cursor: pointer;
-            transition: all 0.3s;
-            color: var(--color-3);
-        }
-
-        .method-option:hover {
-            background: rgba(255, 249, 234, 0.1);
-            border-color: rgba(255, 249, 234, 0.3);
-        }
-
-        .method-option input[type="radio"] {
-            margin-right: 1rem;
-            width: 20px;
-            height: 20px;
-            accent-color: var(--color-4);
-        }
-
-        .method-icon {
-            font-size: 1.5rem;
-            margin-right: 1rem;
-            width: 40px;
-            text-align: center;
-        }
-
-        .method-details {
-            flex: 1;
-        }
-
-        .method-details strong {
-            display: block;
-            font-size: 0.95rem;
-        }
-
-        .method-details span {
-            font-size: 0.85rem;
-            color: rgba(255, 249, 234, 0.6);
         }
 
         .submit-btn {
@@ -871,10 +824,10 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             .section-header h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             .stats {
                 grid-template-columns: repeat(2, 1fr);
@@ -895,16 +848,16 @@
     <!-- Navigation -->
     <nav id="navbar">
         <div class="logo">
-            <i class="fas fa-brain"></i>
-            TrainAI Pro
+            <i class="fas fa-graduation-cap"></i>
+            JasLearn
         </div>
         <ul class="nav-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#payment">Subscribe</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#payment" class="nav-btn">Get Started</a>
+        <a href="#contact" class="nav-btn">Get Started</a>
     </nav>
 
     <!-- Hero Section -->
@@ -927,10 +880,10 @@
             <div class="hero-badge">
                 <i class="fas fa-sparkles"></i> Next-Gen AI Learning
             </div>
-            <h1>AI Employee Training <span>Platform</span></h1>
+            <h1>AI Employee Training<br><span>Platform</span></h1>
             <p>Deliver personalized training, track progress, assess skills, and provide real-time feedback — all powered by intelligent AI that adapts to every learner.</p>
             <div class="hero-btns">
-                <a href="#payment" class="btn-primary">Start Free Trial</a>
+                <a href="#contact" class="btn-primary">Start Free Trial</a>
                 <a href="#features" class="btn-outline">Explore Features</a>
             </div>
         </div>
@@ -1140,7 +1093,7 @@
                     <li><i class="fas fa-check"></i> Email support</li>
                     <li><i class="fas fa-check"></i> Mobile app access</li>
                 </ul>
-                <a href="#payment" class="btn-outline" style="width: 100%; color: var(--color-4); border-color: var(--color-4);">Choose Starter</a>
+                <a href="#contact" class="btn-outline" style="width: 100%; color: var(--color-4); border-color: var(--color-4);">Choose Starter</a>
             </div>
             <div class="pricing-card popular animate-on-scroll">
                 <div class="popular-badge">Most Popular</div>
@@ -1157,7 +1110,7 @@
                     <li><i class="fas fa-check"></i> Priority support</li>
                     <li><i class="fas fa-check"></i> LMS integration</li>
                 </ul>
-                <a href="#payment" class="btn-primary" style="width: 100%;">Choose Professional</a>
+                <a href="#contact" class="btn-primary" style="width: 100%;">Choose Professional</a>
             </div>
             <div class="pricing-card animate-on-scroll">
                 <h3>Enterprise</h3>
@@ -1174,20 +1127,20 @@
                     <li><i class="fas fa-check"></i> Custom integrations</li>
                     <li><i class="fas fa-check"></i> SLA guarantee</li>
                 </ul>
-                <a href="#payment" class="btn-outline" style="width: 100%; color: var(--color-4); border-color: var(--color-4);">Choose Enterprise</a>
+                <a href="#contact" class="btn-outline" style="width: 100%; color: var(--color-4); border-color: var(--color-4);">Choose Enterprise</a>
             </div>
         </div>
     </section>
 
-    <!-- Payment Portal -->
-    <section class="payment" id="payment">
-        <div class="payment-bg"></div>
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-bg"></div>
         <div class="section-header animate-on-scroll">
-            <h2>Subscribe Now</h2>
-            <p>Complete your subscription with our secure payment portal. Start your 14-day free trial today.</p>
+            <h2>Get Started</h2>
+            <p>Leave your details and our team will contact you within 24 hours to set up your personalized demo.</p>
         </div>
-        <div class="payment-container animate-on-scroll">
-            <form id="paymentForm">
+        <div class="contact-container animate-on-scroll">
+            <form id="contactForm">
                 <div class="form-group">
                     <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
                     <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
@@ -1205,38 +1158,8 @@
                     <input type="text" id="company" name="company" placeholder="Your company name">
                 </div>
 
-                <div class="payment-methods">
-                    <h3>Select Payment Method</h3>
-                    <div class="method-options">
-                        <label class="method-option">
-                            <input type="radio" name="paymentMethod" value="tng" required>
-                            <div class="method-icon">💳</div>
-                            <div class="method-details">
-                                <strong>Touch 'n Go eWallet</strong>
-                                <span>Transfer to +6012-6961003</span>
-                            </div>
-                        </label>
-                        <label class="method-option">
-                            <input type="radio" name="paymentMethod" value="applepay">
-                            <div class="method-icon"><i class="fab fa-apple"></i></div>
-                            <div class="method-details">
-                                <strong>Apple Pay</strong>
-                                <span>Fast & secure payment</span>
-                            </div>
-                        </label>
-                        <label class="method-option">
-                            <input type="radio" name="paymentMethod" value="bank">
-                            <div class="method-icon">🏦</div>
-                            <div class="method-details">
-                                <strong>Bank Transfer</strong>
-                                <span>Account: 0072 5527 1471</span>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-lock"></i> Complete Subscription
+                    <i class="fas fa-paper-plane"></i> Request Demo
                 </button>
             </form>
         </div>
@@ -1244,7 +1167,7 @@
 
     <!-- Footer -->
     <footer>
-        <p> 2025 TrainAI Pro. All rights reserved. | AI Employee Training Platform</p>
+        <p> 2025 JasLearn. All rights reserved. | AI Employee Training Platform</p>
     </footer>
 
     <!-- Success Modal -->
@@ -1253,8 +1176,8 @@
             <div class="modal-icon">
                 <i class="fas fa-check"></i>
             </div>
-            <h3>Subscription Received!</h3>
-            <p>Thank you for subscribing. Our team will contact you within 24 hours to complete your onboarding.</p>
+            <h3>Request Received!</h3>
+            <p>Thank you for your interest. Our team will contact you within 24 hours to schedule your demo.</p>
             <button class="btn-primary" onclick="closeModal()">Got It</button>
         </div>
     </div>
@@ -1312,14 +1235,14 @@
         });
 
         // Form submission
-        document.getElementById('paymentForm').addEventListener('submit', function(e) {
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             document.getElementById('successModal').classList.add('active');
         });
 
         function closeModal() {
             document.getElementById('successModal').classList.remove('active');
-            document.getElementById('paymentForm').reset();
+            document.getElementById('contactForm').reset();
         }
 
         // Close modal on outside click
