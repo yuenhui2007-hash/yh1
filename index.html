@@ -31,29 +31,44 @@
         /* Custom Cursor */
         .cursor {
             position: fixed;
-            width: 12px; height: 12px;
+            width: 14px; height: 14px;
             background: var(--color-4);
             border-radius: 50%;
             pointer-events: none;
             z-index: 99999;
             transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
+            transition: width 0.25s, height 0.25s, background 0.25s;
             mix-blend-mode: difference;
+            box-shadow: 0 0 12px rgba(127,117,94,0.4);
         }
         .cursor.hover {
-            width: 40px; height: 40px;
-            background: rgba(127, 117, 94, 0.3);
+            width: 48px; height: 48px;
+            background: rgba(127, 117, 94, 0.15);
             border: 2px solid var(--color-4);
+            box-shadow: 0 0 24px rgba(127,117,94,0.3);
         }
         .cursor-trail {
             position: fixed;
-            width: 6px; height: 6px;
+            width: 5px; height: 5px;
             background: var(--color-5);
             border-radius: 50%;
             pointer-events: none;
             z-index: 99998;
             transform: translate(-50%, -50%);
-            opacity: 0.6;
+            opacity: 0.5;
+        }
+        .cursor-particle {
+            position: fixed;
+            width: 4px; height: 4px;
+            background: var(--color-4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99997;
+            animation: particleFade 0.8s ease-out forwards;
+        }
+        @keyframes particleFade {
+            0% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%,-50%) scale(0); }
         }
 
         /* Navigation */
@@ -883,6 +898,11 @@
     <div class="cursor-trail" id="trail1"></div>
     <div class="cursor-trail" id="trail2"></div>
     <div class="cursor-trail" id="trail3"></div>
+    <div class="cursor-trail" id="trail4"></div>
+    <div class="cursor-trail" id="trail5"></div>
+    <div class="cursor-trail" id="trail6"></div>
+    <div class="cursor-trail" id="trail7"></div>
+    <div class="cursor-trail" id="trail8"></div>
 
     <!-- Navigation -->
     <nav id="navbar">
@@ -1172,26 +1192,56 @@
         }
         document.getElementById('successModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 
-        // Custom Cursor
+        // Custom Cursor with particles
         const cursor = document.getElementById('cursor');
-        const trails = [document.getElementById('trail1'), document.getElementById('trail2'), document.getElementById('trail3')];
-        let mx = 0, my = 0, tx = [0,0,0], ty = [0,0,0];
-        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        const trails = Array.from({length:8},(_,i)=>document.getElementById('trail'+(i+1)));
+        let mx = 0, my = 0, tx = trails.map(()=>window.innerWidth/2), ty = trails.map(()=>window.innerHeight/2);
+        let lastMx = 0, lastMy = 0, speed = 0;
+        document.addEventListener('mousemove', e => { lastMx = mx; lastMy = my; mx = e.clientX; my = e.clientY; speed = Math.hypot(mx-lastMx, my-lastMy); });
         function animCursor() {
             cursor.style.left = mx + 'px';
             cursor.style.top = my + 'px';
             trails.forEach((t, i) => {
-                tx[i] += (mx - tx[i]) * (0.2 - i * 0.05);
-                ty[i] += (my - ty[i]) * (0.2 - i * 0.05);
+                const ease = 0.18 - i * 0.015;
+                tx[i] += (mx - tx[i]) * ease;
+                ty[i] += (my - ty[i]) * ease;
                 t.style.left = tx[i] + 'px';
                 t.style.top = ty[i] + 'px';
+                const size = 6 - i * 0.4;
+                t.style.width = size + 'px';
+                t.style.height = size + 'px';
+                t.style.opacity = (0.5 - i * 0.04) + (speed * 0.01);
             });
             requestAnimationFrame(animCursor);
         }
         animCursor();
-        document.querySelectorAll('a, button, input, .chat-toggle, .chat-send').forEach(el => {
+        // Click particles
+        document.addEventListener('click', e => {
+            for (let i = 0; i < 8; i++) {
+                const p = document.createElement('div');
+                p.className = 'cursor-particle';
+                p.style.left = e.clientX + 'px';
+                p.style.top = e.clientY + 'px';
+                const angle = (Math.PI * 2 / 8) * i;
+                const dist = 20 + Math.random() * 30;
+                p.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+                p.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+                p.style.transform = `translate(-50%,-50%) translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`;
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 800);
+            }
+        });
+        // Magnetic hover
+        document.querySelectorAll('a, button, input, .chat-toggle, .chat-send, .nav-btn').forEach(el => {
             el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
             el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            el.addEventListener('mousemove', e => {
+                const rect = el.getBoundingClientRect();
+                const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+                const dx = (e.clientX - cx) * 0.15, dy = (e.clientY - cy) * 0.15;
+                el.style.transform = `translate(${dx}px,${dy}px)`;
+            });
+            el.addEventListener('mouseleave', () => { el.style.transform = ''; });
         });
 
         // Chat
