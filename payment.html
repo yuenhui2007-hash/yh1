@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — JasLearn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --color-1: #7F7C74; --color-2: #FFFFFF; --color-3: #FFF9EA;
+            --color-4: #7F755E; --color-5: #CCC7BB;
+            --gradient-warm: linear-gradient(135deg, #7F755E, #CCC7BB);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--color-3), var(--color-5));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            background: var(--color-2);
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(127, 117, 94, 0.15);
+            overflow: hidden;
+        }
+        .checkout-form {
+            padding: 3rem;
+        }
+        .checkout-form h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--color-4);
+            margin-bottom: 0.3rem;
+        }
+        .checkout-form .subtitle {
+            color: var(--color-1);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--color-4);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-4);
+            margin-bottom: 0.4rem;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1.5px solid var(--color-5);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--color-4);
+            box-shadow: 0 0 0 3px rgba(127, 117, 94, 0.1);
+        }
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .method-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid var(--color-5);
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--color-2);
+        }
+        .method-card:hover {
+            border-color: var(--color-4);
+            background: var(--color-3);
+        }
+        .method-card.selected {
+            border-color: var(--color-4);
+            background: var(--color-3);
+            box-shadow: 0 4px 15px rgba(127, 117, 94, 0.1);
+        }
+        .method-card input {
+            margin-right: 1rem;
+            width: 18px; height: 18px;
+            accent-color: var(--color-4);
+        }
+        .method-icon {
+            width: 40px;
+            text-align: center;
+            font-size: 1.4rem;
+            margin-right: 0.8rem;
+        }
+        .method-info { flex: 1; }
+        .method-info strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--color-4);
+        }
+        .method-info span {
+            font-size: 0.8rem;
+            color: var(--color-1);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--gradient-warm);
+            color: var(--color-2);
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(127, 117, 94, 0.3);
+        }
+        .secure-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--color-1);
+        }
+        /* Order Summary */
+        .order-summary {
+            background: var(--color-3);
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .order-summary h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--color-4);
+            margin-bottom: 1.5rem;
+        }
+        .plan-details {
+            background: var(--color-2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--color-5);
+        }
+        .plan-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-4);
+            margin-bottom: 0.3rem;
+        }
+        .plan-desc {
+            font-size: 0.85rem;
+            color: var(--color-1);
+            margin-bottom: 1rem;
+        }
+        .plan-price {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--color-4);
+            font-family: 'Playfair Display', serif;
+        }
+        .plan-price span {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--color-1);
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            font-size: 0.9rem;
+            color: var(--color-1);
+        }
+        .summary-row.total {
+            border-top: 2px solid var(--color-5);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-4);
+        }
+        .discount-badge {
+            background: #22c55e;
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .guarantee {
+            margin-top: auto;
+            text-align: center;
+            padding-top: 2rem;
+        }
+        .guarantee i {
+            font-size: 2rem;
+            color: var(--color-4);
+            margin-bottom: 0.5rem;
+        }
+        .guarantee p {
+            font-size: 0.85rem;
+            color: var(--color-1);
+            line-height: 1.5;
+        }
+        @media (max-width: 768px) {
+            .checkout-container { grid-template-columns: 1fr; }
+            .order-summary { order: -1; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-form">
+            <a href="index.html#pricing" class="back-link"><i class="fas fa-arrow-left"></i> Back to Plans</a>
+            <h1>Complete Your Order</h1>
+            <p class="subtitle">Enter your details to activate your subscription</p>
+
+            <div class="section-title">Account Information</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="+6012-3456789" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Company Name (Optional)</label>
+                <input type="text" placeholder="Your company name">
+            </div>
+
+            <div class="section-title">Payment Method</div>
+            <div class="payment-methods">
+                <label class="method-card selected" onclick="selectMethod(this)">
+                    <input type="radio" name="payment" value="tng" checked>
+                    <div class="method-icon">💳</div>
+                    <div class="method-info">
+                        <strong>Touch 'n Go eWallet</strong>
+                        <span>Transfer to +6012-6961003</span>
+                    </div>
+                </label>
+                <label class="method-card" onclick="selectMethod(this)">
+                    <input type="radio" name="payment" value="applepay">
+                    <div class="method-icon"><i class="fab fa-apple"></i></div>
+                    <div class="method-info">
+                        <strong>Apple Pay</strong>
+                        <span>Fast & secure payment</span>
+                    </div>
+                </label>
+                <label class="method-card" onclick="selectMethod(this)">
+                    <input type="radio" name="payment" value="bank">
+                    <div class="method-icon">🏦</div>
+                    <div class="method-info">
+                        <strong>Bank Transfer</strong>
+                        <span>Account: 0072 5527 1471</span>
+                    </div>
+                </label>
+            </div>
+
+            <button class="submit-btn" onclick="completeOrder()">
+                <i class="fas fa-lock"></i> Complete Secure Payment
+            </button>
+            <div class="secure-note">
+                <i class="fas fa-shield-alt"></i> Your payment information is secure and encrypted
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="plan-details">
+                <div class="plan-name" id="planName">Professional Plan</div>
+                <div class="plan-desc" id="planDesc">For growing businesses — up to 100 employees</div>
+                <div class="plan-price" id="planPrice">RM 129<span>/month</span></div>
+            </div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotal">RM 129.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Discount <span class="discount-badge">YEARLY</span></span>
+                <span id="discount">-RM 0.00</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total Due</span>
+                <span id="total">RM 129.00</span>
+            </div>
+            <div class="guarantee">
+                <i class="fas fa-undo-alt"></i>
+                <p><strong>14-Day Money-Back Guarantee</strong><br>Cancel anytime within 14 days for a full refund. No questions asked.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const plans = {
+            starter: { name: 'Starter Plan', desc: 'For small teams — up to 25 employees', monthly: 49, yearly: 39 },
+            professional: { name: 'Professional Plan', desc: 'For growing businesses — up to 100 employees', monthly: 129, yearly: 99 },
+            enterprise: { name: 'Enterprise Plan', desc: 'For large organizations — unlimited employees', monthly: 399, yearly: 319 }
+        };
+        const params = new URLSearchParams(window.location.search);
+        const planKey = params.get('plan') || 'professional';
+        const period = params.get('period') || 'monthly';
+        const plan = plans[planKey] || plans.professional;
+        const price = period === 'yearly' ? plan.yearly : plan.monthly;
+        const oldPrice = period === 'yearly' ? plan.monthly * 12 : null;
+
+        document.getElementById('planName').textContent = plan.name;
+        document.getElementById('planDesc').textContent = plan.desc;
+        document.getElementById('planPrice').innerHTML = 'RM ' + price + '<span>/month</span>';
+        document.getElementById('subtotal').textContent = 'RM ' + price.toFixed(2);
+
+        if (period === 'yearly' && oldPrice) {
+            const savings = (oldPrice - (price * 12)).toFixed(2);
+            document.getElementById('discount').textContent = '-RM ' + savings;
+            document.getElementById('total').textContent = 'RM ' + (price * 12).toFixed(2);
+        } else {
+            document.getElementById('discount').textContent = '-RM 0.00';
+            document.getElementById('total').textContent = 'RM ' + price.toFixed(2);
+        }
+
+        function selectMethod(el) {
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            el.querySelector('input').checked = true;
+        }
+        function completeOrder() {
+            alert('Thank you! Your order has been received. Please complete the payment using your selected method. Our team will activate your account within 24 hours.');
+        }
+    </script>
+</body>
+</html>

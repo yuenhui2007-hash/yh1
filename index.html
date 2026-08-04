@@ -9,42 +9,57 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --color-1: #7F7C74;
-            --color-2: #FFFFFF;
-            --color-3: #FFF9EA;
-            --color-4: #7F755E;
-            --color-5: #CCC7BB;
-            --dark: #7F755E;
-            --dark-light: #7F7C74;
-            --light: #FFF9EA;
-            --light-alt: #FFFFFF;
-            --accent: #CCC7BB;
-            --text: #7F755E;
-            --text-light: #7F7C74;
-            --text-on-dark: #FFF9EA;
+            --color-1: #7F7C74; --color-2: #FFFFFF; --color-3: #FFF9EA;
+            --color-4: #7F755E; --color-5: #CCC7BB;
+            --dark: #7F755E; --dark-light: #7F7C74; --light: #FFF9EA;
+            --light-alt: #FFFFFF; --accent: #CCC7BB;
+            --text: #7F755E; --text-light: #7F7C74; --text-on-dark: #FFF9EA;
             --gradient: linear-gradient(135deg, #7F755E, #7F7C74, #CCC7BB);
             --gradient-warm: linear-gradient(135deg, #7F755E, #CCC7BB);
         }
-
         body {
             font-family: 'Inter', sans-serif;
             color: var(--text);
             overflow-x: hidden;
             background: var(--light);
+            cursor: none;
+        }
+        a, button, input, label { cursor: none; }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 12px; height: 12px;
+            background: var(--color-4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background 0.2s;
+            mix-blend-mode: difference;
+        }
+        .cursor.hover {
+            width: 40px; height: 40px;
+            background: rgba(127, 117, 94, 0.3);
+            border: 2px solid var(--color-4);
+        }
+        .cursor-trail {
+            position: fixed;
+            width: 6px; height: 6px;
+            background: var(--color-5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            opacity: 0.6;
         }
 
         /* Navigation */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
+            top: 0; width: 100%;
             z-index: 1000;
             background: rgba(127, 117, 94, 0.92);
             backdrop-filter: blur(20px);
@@ -54,12 +69,10 @@
             align-items: center;
             transition: all 0.3s ease;
         }
-
         nav.scrolled {
             background: rgba(127, 117, 94, 0.98);
             box-shadow: 0 4px 30px rgba(127, 117, 94, 0.3);
         }
-
         .logo {
             font-size: 1.6rem;
             font-weight: 600;
@@ -69,18 +82,10 @@
             gap: 0.5rem;
             font-family: 'Playfair Display', serif;
             letter-spacing: 0.5px;
+            text-decoration: none;
         }
-
-        .logo i {
-            color: var(--color-5);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
+        .logo i { color: var(--color-5); }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a {
             color: rgba(255, 249, 234, 0.85);
             text-decoration: none;
@@ -88,11 +93,7 @@
             transition: color 0.3s;
             font-size: 0.95rem;
         }
-
-        .nav-links a:hover {
-            color: var(--color-2);
-        }
-
+        .nav-links a:hover { color: var(--color-2); }
         .nav-btn {
             background: var(--color-3);
             color: var(--color-4);
@@ -102,15 +103,22 @@
             font-weight: 600;
             transition: transform 0.3s, box-shadow 0.3s;
             border: none;
-            cursor: pointer;
         }
-
         .nav-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(127, 117, 94, 0.3);
         }
+        .nav-auth { display: flex; gap: 1rem; align-items: center; }
+        .nav-auth a {
+            color: rgba(255, 249, 234, 0.85);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .nav-auth a:hover { color: var(--color-2); }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -121,57 +129,66 @@
             overflow: hidden;
             background: var(--color-4);
         }
-
         .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80') center/cover;
             opacity: 0.25;
         }
-
         .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(127, 117, 94, 0.95), rgba(127, 124, 116, 0.85), rgba(204, 199, 187, 0.3));
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(127,117,94,0.95), rgba(127,124,116,0.85), rgba(204,199,187,0.3));
         }
-
         .particles {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             overflow: hidden;
         }
-
         .particle {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             background: var(--color-5);
             border-radius: 50%;
             animation: float 15s infinite;
             opacity: 0.5;
         }
-
         @keyframes float {
             0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
             10% { opacity: 0.5; }
             90% { opacity: 0.5; }
             100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
         }
-
+        .floating-cards {
+            position: absolute;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .float-card {
+            position: absolute;
+            background: rgba(255, 249, 234, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 249, 234, 0.15);
+            border-radius: 16px;
+            padding: 1rem 1.5rem;
+            color: var(--color-3);
+            font-size: 0.85rem;
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+        .float-card:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .float-card:nth-child(2) { top: 30%; right: 10%; animation-delay: 2s; }
+        .float-card:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 4s; }
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
         .hero-content {
             position: relative;
             z-index: 2;
             max-width: 900px;
             padding: 0 2rem;
         }
-
         .hero-badge {
             display: inline-block;
             background: rgba(255, 249, 234, 0.1);
@@ -184,7 +201,6 @@
             margin-bottom: 1.5rem;
             backdrop-filter: blur(10px);
         }
-
         .hero h1 {
             font-size: 4.5rem;
             font-weight: 500;
@@ -194,26 +210,19 @@
             font-family: 'Playfair Display', serif;
             letter-spacing: -1px;
         }
-
-        .hero h1 span {
-            color: var(--color-5);
-            font-style: italic;
-        }
-
+        .hero h1 span { color: var(--color-5); font-style: italic; }
         .hero p {
             font-size: 1.25rem;
             color: rgba(255, 249, 234, 0.85);
             margin-bottom: 2.5rem;
             line-height: 1.7;
         }
-
         .hero-btns {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
         }
-
         .btn-primary {
             background: var(--color-3);
             color: var(--color-4);
@@ -225,15 +234,12 @@
             transition: all 0.3s;
             display: inline-block;
             border: none;
-            cursor: pointer;
         }
-
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(127, 117, 94, 0.4);
             background: var(--color-2);
         }
-
         .btn-outline {
             background: transparent;
             color: var(--color-3);
@@ -246,43 +252,12 @@
             transition: all 0.3s;
             display: inline-block;
         }
-
         .btn-outline:hover {
             background: rgba(255, 249, 234, 0.1);
             border-color: var(--color-3);
         }
 
-        /* Floating Cards */
-        .floating-cards {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .float-card {
-            position: absolute;
-            background: rgba(255, 249, 234, 0.08);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 249, 234, 0.15);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
-            color: var(--color-3);
-            font-size: 0.85rem;
-            animation: cardFloat 6s ease-in-out infinite;
-        }
-
-        .float-card:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .float-card:nth-child(2) { top: 30%; right: 10%; animation-delay: 2s; }
-        .float-card:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 4s; }
-
-        @keyframes cardFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Stats Section */
+        /* Stats */
         .stats {
             padding: 4rem 5%;
             background: var(--color-1);
@@ -291,35 +266,25 @@
             gap: 2rem;
             text-align: center;
         }
-
-        .stat-item {
-            padding: 1.5rem;
-        }
-
+        .stat-item { padding: 1.5rem; }
         .stat-item h3 {
             font-size: 2.8rem;
             font-weight: 500;
             color: var(--color-3);
             font-family: 'Playfair Display', serif;
         }
-
         .stat-item p {
             color: rgba(255, 249, 234, 0.7);
             margin-top: 0.5rem;
             font-size: 0.95rem;
         }
 
-        /* Section Styles */
-        section {
-            padding: 6rem 5%;
-            text-align: center;
-        }
-
+        /* Sections */
+        section { padding: 6rem 5%; text-align: center; }
         .section-header {
             max-width: 700px;
             margin: 0 auto 4rem;
         }
-
         .section-header h2 {
             font-size: 3.2rem;
             font-weight: 500;
@@ -328,18 +293,14 @@
             font-family: 'Playfair Display', serif;
             letter-spacing: -0.5px;
         }
-
         .section-header p {
             font-size: 1.1rem;
             color: var(--text-light);
             line-height: 1.7;
         }
 
-        /* Features Section */
-        .features {
-            background: var(--color-2);
-        }
-
+        /* Features */
+        .features { background: var(--color-2); }
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -347,7 +308,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .feature-card {
             background: var(--color-2);
             border-radius: 20px;
@@ -358,32 +318,22 @@
             position: relative;
             overflow: hidden;
         }
-
         .feature-card::before {
             content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 4px;
             background: var(--gradient-warm);
             transform: scaleX(0);
             transition: transform 0.4s ease;
         }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
+        .feature-card:hover::before { transform: scaleX(1); }
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 30px 60px rgba(127, 117, 94, 0.12);
             border-color: var(--color-4);
         }
-
         .feature-icon {
-            width: 70px;
-            height: 70px;
+            width: 70px; height: 70px;
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -393,7 +343,6 @@
             color: var(--color-2);
             background: var(--gradient-warm);
         }
-
         .feature-card h3 {
             font-size: 1.3rem;
             margin-bottom: 1rem;
@@ -401,7 +350,6 @@
             font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
-
         .feature-card p {
             color: var(--text-light);
             line-height: 1.7;
@@ -413,7 +361,6 @@
             background: linear-gradient(180deg, var(--color-3), var(--color-5));
             position: relative;
         }
-
         .steps-container {
             display: flex;
             justify-content: center;
@@ -422,7 +369,6 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .step-card {
             background: var(--color-2);
             border-radius: 20px;
@@ -433,14 +379,9 @@
             transition: transform 0.3s;
             position: relative;
         }
-
-        .step-card:hover {
-            transform: translateY(-5px);
-        }
-
+        .step-card:hover { transform: translateY(-5px); }
         .step-number {
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border-radius: 50%;
             background: var(--gradient-warm);
             color: var(--color-2);
@@ -451,7 +392,6 @@
             font-weight: 800;
             margin: 0 auto 1.5rem;
         }
-
         .step-card h3 {
             font-size: 1.2rem;
             margin-bottom: 0.8rem;
@@ -459,38 +399,26 @@
             font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
-
         .step-card p {
             color: var(--text-light);
             font-size: 0.9rem;
             line-height: 1.6;
         }
 
-        /* Value Section */
+        /* Value */
         .value {
             background: var(--color-4);
             position: relative;
             overflow: hidden;
         }
-
-        .value .section-header h2 {
-            color: var(--color-3);
-        }
-
-        .value .section-header p {
-            color: rgba(255, 249, 234, 0.7);
-        }
-
+        .value .section-header h2 { color: var(--color-3); }
+        .value .section-header p { color: rgba(255, 249, 234, 0.7); }
         .value-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80') center/cover;
             opacity: 0.12;
         }
-
         .value-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -500,7 +428,6 @@
             position: relative;
             z-index: 2;
         }
-
         .value-item {
             background: rgba(255, 249, 234, 0.06);
             backdrop-filter: blur(10px);
@@ -511,37 +438,66 @@
             text-align: left;
             transition: all 0.3s;
         }
-
         .value-item:hover {
             background: rgba(255, 249, 234, 0.1);
             transform: translateY(-5px);
         }
-
         .value-item i {
             font-size: 1.5rem;
             color: var(--color-5);
             margin-bottom: 1rem;
             display: block;
         }
-
         .value-item h3 {
             font-size: 1.15rem;
             margin-bottom: 0.5rem;
             font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
-
         .value-item p {
             color: rgba(255, 249, 234, 0.7);
             font-size: 0.9rem;
             line-height: 1.6;
         }
 
-        /* Pricing Section */
+        /* Pricing */
         .pricing {
             background: linear-gradient(135deg, var(--color-3), var(--color-5));
         }
-
+        .pricing-toggle {
+            display: inline-flex;
+            background: var(--color-2);
+            border-radius: 50px;
+            padding: 0.4rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(127, 117, 94, 0.1);
+        }
+        .pricing-toggle button {
+            padding: 0.7rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: transparent;
+            color: var(--text);
+        }
+        .pricing-toggle button.active {
+            background: var(--gradient-warm);
+            color: var(--color-2);
+        }
+        .save-badge {
+            display: inline-block;
+            background: #22c55e;
+            color: white;
+            padding: 0.2rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
         .pricing-grid {
             display: flex;
             justify-content: center;
@@ -550,7 +506,6 @@
             max-width: 1100px;
             margin: 0 auto;
         }
-
         .pricing-card {
             background: var(--color-2);
             border-radius: 24px;
@@ -562,25 +517,20 @@
             position: relative;
             border: 2px solid transparent;
         }
-
         .pricing-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 30px 60px rgba(127, 117, 94, 0.12);
         }
-
         .pricing-card.popular {
             border-color: var(--color-4);
             transform: scale(1.05);
         }
-
         .pricing-card.popular:hover {
             transform: scale(1.05) translateY(-10px);
         }
-
         .popular-badge {
             position: absolute;
-            top: -12px;
-            left: 50%;
+            top: -12px; left: 50%;
             transform: translateX(-50%);
             background: var(--gradient-warm);
             color: var(--color-2);
@@ -589,7 +539,6 @@
             font-size: 0.8rem;
             font-weight: 600;
         }
-
         .pricing-card h3 {
             font-size: 1.4rem;
             margin-bottom: 0.5rem;
@@ -597,39 +546,35 @@
             font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
-
         .pricing-card .subtitle {
             color: var(--text-light);
             font-size: 0.9rem;
             margin-bottom: 1.5rem;
         }
-
         .price {
             font-size: 3.2rem;
             font-weight: 500;
             color: var(--color-4);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
             font-family: 'Playfair Display', serif;
         }
-
-        .price span {
-            font-size: 1rem;
-            font-weight: 400;
-            color: var(--text-light);
-        }
-
+        .price span { font-size: 1rem; font-weight: 400; color: var(--text-light); }
         .price-period {
             color: var(--text-light);
             font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.3rem;
         }
-
+        .price-old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
         .features-list {
             list-style: none;
             text-align: left;
             margin-bottom: 2rem;
         }
-
         .features-list li {
             padding: 0.6rem 0;
             color: var(--text);
@@ -638,36 +583,22 @@
             align-items: center;
             gap: 0.5rem;
         }
+        .features-list li i { color: var(--color-4); }
 
-        .features-list li i {
-            color: var(--color-4);
-        }
-
-        /* Contact Section */
+        /* Contact */
         .contact {
             background: var(--color-4);
             position: relative;
             overflow: hidden;
         }
-
         .contact-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1920&q=80') center/cover;
             opacity: 0.08;
         }
-
-        .contact .section-header h2 {
-            color: var(--color-3);
-        }
-
-        .contact .section-header p {
-            color: rgba(255, 249, 234, 0.7);
-        }
-
+        .contact .section-header h2 { color: var(--color-3); }
+        .contact .section-header p { color: rgba(255, 249, 234, 0.7); }
         .contact-container {
             max-width: 600px;
             margin: 0 auto;
@@ -679,12 +610,10 @@
             position: relative;
             z-index: 2;
         }
-
         .form-group {
             margin-bottom: 1.5rem;
             text-align: left;
         }
-
         .form-group label {
             display: block;
             color: rgba(255, 249, 234, 0.9);
@@ -692,7 +621,6 @@
             font-weight: 500;
             font-size: 0.95rem;
         }
-
         .form-group input {
             width: 100%;
             padding: 1rem 1.2rem;
@@ -704,17 +632,14 @@
             transition: all 0.3s;
             font-family: 'Inter', sans-serif;
         }
-
         .form-group input:focus {
             outline: none;
             border-color: var(--color-5);
             background: rgba(255, 249, 234, 0.12);
         }
-
         .form-group input::placeholder {
             color: rgba(255, 249, 234, 0.4);
         }
-
         .submit-btn {
             width: 100%;
             padding: 1.2rem;
@@ -724,77 +649,150 @@
             border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 600;
-            cursor: pointer;
             transition: all 0.3s;
             font-family: 'Inter', sans-serif;
         }
-
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(127, 117, 94, 0.4);
             background: var(--color-2);
         }
 
-        /* Success Modal */
-        .modal {
-            display: none;
+        /* AI Chat Widget */
+        .chat-widget {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(127, 117, 94, 0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+            bottom: 30px;
+            right: 30px;
+            z-index: 5000;
+            font-family: 'Inter', sans-serif;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--color-2);
-            padding: 3rem;
-            border-radius: 24px;
-            text-align: center;
-            max-width: 400px;
-            animation: modalIn 0.4s ease;
-        }
-
-        @keyframes modalIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-warm);
+        .chat-toggle {
+            width: 60px; height: 60px;
             border-radius: 50%;
+            background: var(--gradient-warm);
+            color: var(--color-2);
+            border: none;
+            font-size: 1.5rem;
+            cursor: none;
+            box-shadow: 0 8px 30px rgba(127, 117, 94, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: var(--color-2);
         }
-
-        .modal h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--color-4);
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 40px rgba(127, 117, 94, 0.5);
         }
-
-        .modal p {
-            color: var(--text-light);
-            margin-bottom: 1.5rem;
+        .chat-box {
+            position: absolute;
+            bottom: 75px;
+            right: 0;
+            width: 360px;
+            max-height: 500px;
+            background: var(--color-2);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(127, 117, 94, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--color-5);
         }
-
-        .modal .btn-primary {
+        .chat-box.active { display: flex; }
+        .chat-header {
             background: var(--gradient-warm);
             color: var(--color-2);
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
+        .chat-header img {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--color-2);
+            padding: 2px;
+        }
+        .chat-header div h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        .chat-header div p {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        .chat-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--color-2);
+            font-size: 1.2rem;
+            cursor: none;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 1.2rem;
+            overflow-y: auto;
+            max-height: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .chat-msg {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 14px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            animation: msgIn 0.3s ease;
+        }
+        @keyframes msgIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chat-msg.bot {
+            background: var(--color-3);
+            color: var(--color-4);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+        .chat-msg.user {
+            background: var(--gradient-warm);
+            color: var(--color-2);
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-input-area {
+            padding: 1rem 1.2rem;
+            border-top: 1px solid var(--color-5);
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chat-input-area input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            border-radius: 50px;
+            border: 1px solid var(--color-5);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .chat-input-area input:focus {
+            border-color: var(--color-4);
+        }
+        .chat-send {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-warm);
+            color: var(--color-2);
+            border: none;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+        .chat-send:hover { transform: scale(1.1); }
 
         /* Footer */
         footer {
@@ -804,112 +802,137 @@
             color: rgba(255, 249, 234, 0.5);
             border-top: 1px solid rgba(255, 249, 234, 0.1);
         }
+        footer p { font-size: 0.9rem; }
 
-        footer p {
-            font-size: 0.9rem;
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(127, 117, 94, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: var(--color-2);
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: center;
+            max-width: 400px;
+            animation: modalIn 0.4s ease;
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-icon {
+            width: 80px; height: 80px;
+            background: var(--gradient-warm);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--color-2);
+        }
+        .modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-4);
+        }
+        .modal p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+        .modal .btn-primary {
+            background: var(--gradient-warm);
+            color: var(--color-2);
         }
 
-        /* Scroll Animations */
+        /* Animations */
         .animate-on-scroll {
             opacity: 0;
             transform: translateY(30px);
             transition: all 0.6s ease;
         }
-
         .animate-on-scroll.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            .section-header h2 {
-                font-size: 2.2rem;
-            }
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .pricing-card.popular {
-                transform: none;
-            }
-            .pricing-card.popular:hover {
-                transform: translateY(-10px);
-            }
-            .nav-links {
-                display: none;
-            }
+            .hero h1 { font-size: 2.8rem; }
+            .section-header h2 { font-size: 2.2rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .pricing-card.popular { transform: none; }
+            .pricing-card.popular:hover { transform: translateY(-10px); }
+            .nav-links { display: none; }
+            .chat-box { width: calc(100vw - 40px); right: -10px; }
+            body { cursor: auto; }
+            a, button, input, label { cursor: pointer; }
+            .cursor, .cursor-trail { display: none; }
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-trail" id="trail1"></div>
+    <div class="cursor-trail" id="trail2"></div>
+    <div class="cursor-trail" id="trail3"></div>
+
     <!-- Navigation -->
     <nav id="navbar">
-        <div class="logo">
+        <a href="index.html" class="logo">
             <i class="fas fa-graduation-cap"></i>
             JasLearn
-        </div>
+        </a>
         <ul class="nav-links">
             <li><a href="#features">Features</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
             <li><a href="#pricing">Pricing</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <a href="#contact" class="nav-btn">Get Started</a>
+        <div class="nav-auth">
+            <a href="login.html">Sign In</a>
+            <a href="signup.html" class="nav-btn">Get Started</a>
+        </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero" id="home">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="particles" id="particles"></div>
         <div class="floating-cards">
-            <div class="float-card">
-                <i class="fas fa-chart-line"></i> +45% Skill Growth
-            </div>
-            <div class="float-card">
-                <i class="fas fa-clock"></i> -60% Training Time
-            </div>
-            <div class="float-card">
-                <i class="fas fa-users"></i> 10,000+ Employees Trained
-            </div>
+            <div class="float-card"><i class="fas fa-chart-line"></i> +45% Skill Growth</div>
+            <div class="float-card"><i class="fas fa-clock"></i> -60% Training Time</div>
+            <div class="float-card"><i class="fas fa-users"></i> 10,000+ Employees Trained</div>
         </div>
         <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-sparkles"></i> Next-Gen AI Learning
-            </div>
+            <div class="hero-badge"><i class="fas fa-sparkles"></i> Next-Gen AI Learning</div>
             <h1>AI Employee Training<br><span>Platform</span></h1>
             <p>Deliver personalized training, track progress, assess skills, and provide real-time feedback — all powered by intelligent AI that adapts to every learner.</p>
             <div class="hero-btns">
-                <a href="#contact" class="btn-primary">Start Free Trial</a>
+                <a href="signup.html" class="btn-primary">Start Free Trial</a>
                 <a href="#features" class="btn-outline">Explore Features</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Stats -->
     <section class="stats">
-        <div class="stat-item">
-            <h3>10K+</h3>
-            <p>Active Learners</p>
-        </div>
-        <div class="stat-item">
-            <h3>500+</h3>
-            <p>Enterprise Clients</p>
-        </div>
-        <div class="stat-item">
-            <h3>98%</h3>
-            <p>Completion Rate</p>
-        </div>
-        <div class="stat-item">
-            <h3>4.9</h3>
-            <p>User Rating</p>
-        </div>
+        <div class="stat-item"><h3>10K+</h3><p>Active Learners</p></div>
+        <div class="stat-item"><h3>500+</h3><p>Enterprise Clients</p></div>
+        <div class="stat-item"><h3>98%</h3><p>Completion Rate</p></div>
+        <div class="stat-item"><h3>4.9</h3><p>User Rating</p></div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features -->
     <section class="features" id="features">
         <div class="section-header animate-on-scroll">
             <h2>Powerful Features</h2>
@@ -917,65 +940,47 @@
         </div>
         <div class="features-grid">
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-user-graduate"></i></div>
                 <h3>Personalized Learning</h3>
                 <p>AI tailors content to each employee's role, performance, and learning style for maximum engagement and retention.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-pie"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
                 <h3>Progress Tracking</h3>
                 <p>Real-time dashboards monitor engagement, completion rates, assessment results, and competency improvements.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-brain"></i></div>
                 <h3>AI Skill Assessment</h3>
                 <p>Intelligent assessments identify skill gaps and recommend targeted learning paths to close them efficiently.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-comments"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-comments"></i></div>
                 <h3>Real-Time Feedback</h3>
                 <p>Instant AI-powered feedback helps employees understand mistakes and improve performance immediately.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
                 <h3>Compliance Management</h3>
                 <p>Automated tracking and certification management ensures your workforce stays compliant with industry regulations.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-vr-cardboard"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-vr-cardboard"></i></div>
                 <h3>Interactive Simulations</h3>
                 <p>Immersive scenarios and simulations provide hands-on practice in a safe, risk-free environment.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
                 <h3>Mobile Learning</h3>
                 <p>Access training anytime, anywhere with fully responsive mobile apps and offline content support.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-puzzle-piece"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-puzzle-piece"></i></div>
                 <h3>LMS Integration</h3>
                 <p>Seamlessly connects with your existing HR systems, LMS, and enterprise applications.</p>
             </div>
             <div class="feature-card animate-on-scroll">
-                <div class="feature-icon">
-                    <i class="fas fa-language"></i>
-                </div>
+                <div class="feature-icon"><i class="fas fa-language"></i></div>
                 <h3>Multi-Language Support</h3>
                 <p>Deliver training in 50+ languages with AI-powered translation and localization features.</p>
             </div>
@@ -989,40 +994,16 @@
             <p>A simple, proven process to transform your workforce training in weeks, not months.</p>
         </div>
         <div class="steps-container">
-            <div class="step-card animate-on-scroll">
-                <div class="step-number">1</div>
-                <h3>Assess Training Needs</h3>
-                <p>Identify skill gaps, business objectives, and target employees with AI-powered workforce analysis.</p>
-            </div>
-            <div class="step-card animate-on-scroll">
-                <div class="step-number">2</div>
-                <h3>Develop Content</h3>
-                <p>Create or integrate learning materials, assessments, and interactive simulations tailored to your needs.</p>
-            </div>
-            <div class="step-card animate-on-scroll">
-                <div class="step-number">3</div>
-                <h3>AI Personalization</h3>
-                <p>AI recommends learning paths based on employee roles, performance, and learning preferences.</p>
-            </div>
-            <div class="step-card animate-on-scroll">
-                <div class="step-number">4</div>
-                <h3>Deploy Platform</h3>
-                <p>Integrate with existing HR, LMS, or enterprise applications with one-click deployment.</p>
-            </div>
-            <div class="step-card animate-on-scroll">
-                <div class="step-number">5</div>
-                <h3>Monitor Progress</h3>
-                <p>Track engagement, completion rates, assessment results, and competency improvements in real-time.</p>
-            </div>
-            <div class="step-card animate-on-scroll">
-                <div class="step-number">6</div>
-                <h3>Optimize Continuously</h3>
-                <p>Use analytics and employee feedback to refine content and improve learning outcomes over time.</p>
-            </div>
+            <div class="step-card animate-on-scroll"><div class="step-number">1</div><h3>Assess Training Needs</h3><p>Identify skill gaps, business objectives, and target employees with AI-powered workforce analysis.</p></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">2</div><h3>Develop Content</h3><p>Create or integrate learning materials, assessments, and interactive simulations tailored to your needs.</p></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">3</div><h3>AI Personalization</h3><p>AI recommends learning paths based on employee roles, performance, and learning preferences.</p></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">4</div><h3>Deploy Platform</h3><p>Integrate with existing HR, LMS, or enterprise applications with one-click deployment.</p></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">5</div><h3>Monitor Progress</h3><p>Track engagement, completion rates, assessment results, and competency improvements in real-time.</p></div>
+            <div class="step-card animate-on-scroll"><div class="step-number">6</div><h3>Optimize Continuously</h3><p>Use analytics and employee feedback to refine content and improve learning outcomes over time.</p></div>
         </div>
     </section>
 
-    <!-- Value Section -->
+    <!-- Value -->
     <section class="value" id="value">
         <div class="value-bg"></div>
         <div class="section-header animate-on-scroll">
@@ -1030,61 +1011,34 @@
             <p>Measurable impact across every dimension of your training program.</p>
         </div>
         <div class="value-grid">
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-user-check"></i>
-                <h3>Personalized Learning</h3>
-                <p>Tailored learning experiences for each employee, boosting engagement and knowledge retention.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-rocket"></i>
-                <h3>Improved Productivity</h3>
-                <p>Faster skill acquisition and better job performance across your entire organization.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-coins"></i>
-                <h3>Reduced Training Costs</h3>
-                <p>Automation lowers instructor and administrative costs by up to 70%.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-chart-bar"></i>
-                <h3>Data-Driven Insights</h3>
-                <p>Analytics help measure learning effectiveness and workforce readiness in real-time.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-expand-arrows-alt"></i>
-                <h3>Scalable Training</h3>
-                <p>Consistent learning experiences across teams, departments, and global locations.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-heart"></i>
-                <h3>Higher Engagement</h3>
-                <p>Interactive, adaptive content increases participation and long-term knowledge retention.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-certificate"></i>
-                <h3>Better Compliance</h3>
-                <p>Streamlines mandatory training and certification tracking with automated reminders.</p>
-            </div>
-            <div class="value-item animate-on-scroll">
-                <i class="fas fa-lightbulb"></i>
-                <h3>Future-Ready Workforce</h3>
-                <p>Supports continuous upskilling and reskilling in a rapidly changing business environment.</p>
-            </div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-user-check"></i><h3>Personalized Learning</h3><p>Tailored learning experiences for each employee, boosting engagement and knowledge retention.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-rocket"></i><h3>Improved Productivity</h3><p>Faster skill acquisition and better job performance across your entire organization.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-coins"></i><h3>Reduced Training Costs</h3><p>Automation lowers instructor and administrative costs by up to 70%.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-chart-bar"></i><h3>Data-Driven Insights</h3><p>Analytics help measure learning effectiveness and workforce readiness in real-time.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-expand-arrows-alt"></i><h3>Scalable Training</h3><p>Consistent learning experiences across teams, departments, and global locations.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-heart"></i><h3>Higher Engagement</h3><p>Interactive, adaptive content increases participation and long-term knowledge retention.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-certificate"></i><h3>Better Compliance</h3><p>Streamlines mandatory training and certification tracking with automated reminders.</p></div>
+            <div class="value-item animate-on-scroll"><i class="fas fa-lightbulb"></i><h3>Future-Ready Workforce</h3><p>Supports continuous upskilling and reskilling in a rapidly changing business environment.</p></div>
         </div>
     </section>
 
-    <!-- Pricing Section -->
+    <!-- Pricing -->
     <section class="pricing" id="pricing">
         <div class="section-header animate-on-scroll">
             <h2>Simple, Transparent Pricing</h2>
             <p>Choose the plan that fits your organization. All plans include a 14-day free trial.</p>
         </div>
+        <div class="pricing-toggle animate-on-scroll">
+            <button class="toggle-btn active" data-period="monthly" onclick="setPricing('monthly')">Monthly</button>
+            <button class="toggle-btn" data-period="yearly" onclick="setPricing('yearly')">Yearly <span class="save-badge">Save 20%</span></button>
+        </div>
         <div class="pricing-grid">
             <div class="pricing-card animate-on-scroll">
                 <h3>Starter</h3>
                 <p class="subtitle">For small teams</p>
-                <div class="price">RM 299<span>/month</span></div>
-                <p class="price-period">Billed annually (RM 3,588/year)</p>
+                <div class="price" data-monthly="RM 49" data-yearly="RM 39">RM 49<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 468/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="RM 588/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Up to 25 employees</li>
                     <li><i class="fas fa-check"></i> Basic AI personalization</li>
@@ -1093,14 +1047,15 @@
                     <li><i class="fas fa-check"></i> Email support</li>
                     <li><i class="fas fa-check"></i> Mobile app access</li>
                 </ul>
-                <a href="#contact" class="btn-outline" style="width: 100%; color: var(--color-4); border-color: var(--color-4);">Choose Starter</a>
+                <a href="payment.html?plan=starter" class="btn-outline" style="width:100%;color:var(--color-4);border-color:var(--color-4);">Choose Starter</a>
             </div>
             <div class="pricing-card popular animate-on-scroll">
                 <div class="popular-badge">Most Popular</div>
                 <h3>Professional</h3>
                 <p class="subtitle">For growing businesses</p>
-                <div class="price">RM 799<span>/month</span></div>
-                <p class="price-period">Billed annually (RM 9,588/year)</p>
+                <div class="price" data-monthly="RM 129" data-yearly="RM 99">RM 129<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 1,188/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="RM 1,548/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Up to 100 employees</li>
                     <li><i class="fas fa-check"></i> Advanced AI personalization</li>
@@ -1110,13 +1065,14 @@
                     <li><i class="fas fa-check"></i> Priority support</li>
                     <li><i class="fas fa-check"></i> LMS integration</li>
                 </ul>
-                <a href="#contact" class="btn-primary" style="width: 100%;">Choose Professional</a>
+                <a href="payment.html?plan=professional" class="btn-primary" style="width:100%;">Choose Professional</a>
             </div>
             <div class="pricing-card animate-on-scroll">
                 <h3>Enterprise</h3>
                 <p class="subtitle">For large organizations</p>
-                <div class="price">RM 2,499<span>/month</span></div>
-                <p class="price-period">Billed annually (RM 29,988/year)</p>
+                <div class="price" data-monthly="RM 399" data-yearly="RM 319">RM 399<span>/month</span></div>
+                <p class="price-period" data-monthly="Billed monthly" data-yearly="Billed annually (RM 3,828/year)">Billed monthly</p>
+                <p class="price-old" data-yearly="RM 4,788/year" style="visibility:hidden;"></p>
                 <ul class="features-list">
                     <li><i class="fas fa-check"></i> Unlimited employees</li>
                     <li><i class="fas fa-check"></i> Full AI customization</li>
@@ -1127,12 +1083,12 @@
                     <li><i class="fas fa-check"></i> Custom integrations</li>
                     <li><i class="fas fa-check"></i> SLA guarantee</li>
                 </ul>
-                <a href="#contact" class="btn-outline" style="width: 100%; color: var(--color-4); border-color: var(--color-4);">Choose Enterprise</a>
+                <a href="payment.html?plan=enterprise" class="btn-outline" style="width:100%;color:var(--color-4);border-color:var(--color-4);">Choose Enterprise</a>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section class="contact" id="contact">
         <div class="contact-bg"></div>
         <div class="section-header animate-on-scroll">
@@ -1142,40 +1098,54 @@
         <div class="contact-container animate-on-scroll">
             <form id="contactForm">
                 <div class="form-group">
-                    <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                    <label><i class="fas fa-user"></i> Full Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
-                    <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="e.g. +6012-3456789" required>
+                    <label><i class="fas fa-phone"></i> Phone Number</label>
+                    <input type="tel" placeholder="e.g. +6012-3456789" required>
                 </div>
                 <div class="form-group">
-                    <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    <label><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" placeholder="your@email.com" required>
                 </div>
                 <div class="form-group">
-                    <label for="company"><i class="fas fa-building"></i> Company Name (Optional)</label>
-                    <input type="text" id="company" name="company" placeholder="Your company name">
+                    <label><i class="fas fa-building"></i> Company Name (Optional)</label>
+                    <input type="text" placeholder="Your company name">
                 </div>
-
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> Request Demo
-                </button>
+                <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Request Demo</button>
             </form>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p> 2025 JasLearn. All rights reserved. | AI Employee Training Platform</p>
+        <p>2025 JasLearn. All rights reserved. | AI Employee Training Platform</p>
     </footer>
 
-    <!-- Success Modal -->
+    <!-- AI Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <div style="width:36px;height:36px;border-radius:50%;background:var(--color-2);display:flex;align-items:center;justify-content:center;color:var(--color-4);font-size:1.2rem;"><i class="fas fa-robot"></i></div>
+                <div><h4>Jas AI</h4><p>Online now</p></div>
+                <button class="chat-close" onclick="toggleChat()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-msg bot">Hello! I'm Jas AI. How can I help you learn about JasLearn today?</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type a message..." onkeypress="if(event.key==='Enter')sendMessage()">
+                <button class="chat-send" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button class="chat-toggle" onclick="toggleChat()" id="chatToggle"><i class="fas fa-comment-dots"></i></button>
+    </div>
+
+    <!-- Modal -->
     <div class="modal" id="successModal">
         <div class="modal-content">
-            <div class="modal-icon">
-                <i class="fas fa-check"></i>
-            </div>
+            <div class="modal-icon"><i class="fas fa-check"></i></div>
             <h3>Request Received!</h3>
             <p>Thank you for your interest. Our team will contact you within 24 hours to schedule your demo.</p>
             <button class="btn-primary" onclick="closeModal()">Got It</button>
@@ -1183,74 +1153,127 @@
     </div>
 
     <script>
-        // Navbar scroll effect
+        // Navbar scroll
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
         });
 
         // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
 
-        // Particle animation
-        const particlesContainer = document.getElementById('particles');
+        // Particles
+        const pc = document.getElementById('particles');
         for (let i = 0; i < 30; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 15 + 's';
-            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-            particlesContainer.appendChild(particle);
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 15 + 's';
+            p.style.animationDuration = (10 + Math.random() * 10) + 's';
+            pc.appendChild(p);
         }
 
         // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+        // Form
+        document.getElementById('contactForm').addEventListener('submit', e => {
             e.preventDefault();
             document.getElementById('successModal').classList.add('active');
         });
-
         function closeModal() {
             document.getElementById('successModal').classList.remove('active');
             document.getElementById('contactForm').reset();
         }
+        document.getElementById('successModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 
-        // Close modal on outside click
-        document.getElementById('successModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const trails = [document.getElementById('trail1'), document.getElementById('trail2'), document.getElementById('trail3')];
+        let mx = 0, my = 0, tx = [0,0,0], ty = [0,0,0];
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        function animCursor() {
+            cursor.style.left = mx + 'px';
+            cursor.style.top = my + 'px';
+            trails.forEach((t, i) => {
+                tx[i] += (mx - tx[i]) * (0.2 - i * 0.05);
+                ty[i] += (my - ty[i]) * (0.2 - i * 0.05);
+                t.style.left = tx[i] + 'px';
+                t.style.top = ty[i] + 'px';
+            });
+            requestAnimationFrame(animCursor);
+        }
+        animCursor();
+        document.querySelectorAll('a, button, input, .chat-toggle, .chat-send').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
         });
+
+        // Chat
+        function toggleChat() {
+            const box = document.getElementById('chatBox');
+            const toggle = document.getElementById('chatToggle');
+            box.classList.toggle('active');
+            toggle.innerHTML = box.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-comment-dots"></i>';
+        }
+        const chatResponses = {
+            'price': 'Our plans start at RM 49/month for Starter, RM 129/month for Professional, and RM 399/month for Enterprise. You can save 20% with yearly billing!',
+            'pricing': 'Our plans start at RM 49/month for Starter, RM 129/month for Professional, and RM 399/month for Enterprise. You can save 20% with yearly billing!',
+            'cost': 'Our plans start at RM 49/month for Starter, RM 129/month for Professional, and RM 399/month for Enterprise. You can save 20% with yearly billing!',
+            'free': 'Yes! We offer a 14-day free trial on all plans. No credit card required.',
+            'trial': 'Yes! We offer a 14-day free trial on all plans. No credit card required.',
+            'feature': 'JasLearn offers personalized AI learning, progress tracking, skill assessments, real-time feedback, compliance management, interactive simulations, mobile learning, LMS integration, and multi-language support.',
+            'features': 'JasLearn offers personalized AI learning, progress tracking, skill assessments, real-time feedback, compliance management, interactive simulations, mobile learning, LMS integration, and multi-language support.',
+            'login': 'You can sign in at our Login page. We also support Google and Apple sign-in for quick access.',
+            'signin': 'You can sign in at our Login page. We also support Google and Apple sign-in for quick access.',
+            'signup': 'You can sign up at our Sign Up page. We also support Google and Apple sign-in for quick access.',
+            'register': 'You can sign up at our Sign Up page. We also support Google and Apple sign-in for quick access.',
+            'contact': 'You can reach us through the contact form on this page, or email us at support@jaslearn.ai. We typically respond within 24 hours.',
+            'support': 'You can reach us through the contact form on this page, or email us at support@jaslearn.ai. We typically respond within 24 hours.',
+            'help': 'I can help with pricing, features, free trials, login issues, and general questions. What would you like to know?',
+            'hello': 'Hello! Welcome to JasLearn. How can I assist you today?',
+            'hi': 'Hi there! Welcome to JasLearn. What can I help you with?'
+        };
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            const container = document.getElementById('chatMessages');
+            container.innerHTML += '<div class="chat-msg user">' + msg + '</div>';
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+            setTimeout(() => {
+                let reply = "I'm not sure about that. Try asking about pricing, features, free trial, login, or contact support!";
+                const lower = msg.toLowerCase();
+                for (const [key, val] of Object.entries(chatResponses)) {
+                    if (lower.includes(key)) { reply = val; break; }
+                }
+                container.innerHTML += '<div class="chat-msg bot">' + reply + '</div>';
+                container.scrollTop = container.scrollHeight;
+            }, 600);
+        }
+
+        // Pricing toggle
+        function setPricing(period) {
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.toggle('active', b.dataset.period === period));
+            document.querySelectorAll('.price').forEach(el => {
+                el.innerHTML = el.dataset[period] + '<span>/month</span>';
+            });
+            document.querySelectorAll('.price-period').forEach(el => {
+                el.textContent = el.dataset[period];
+            });
+            document.querySelectorAll('.price-old').forEach(el => {
+                el.style.visibility = period === 'yearly' ? 'visible' : 'hidden';
+                if (period === 'yearly') el.textContent = el.dataset.yearly;
+            });
+        }
     </script>
 </body>
 </html>
